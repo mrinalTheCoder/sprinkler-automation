@@ -5,6 +5,7 @@ Provides endpoints to manage zones and schedules.
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import uvicorn
@@ -21,6 +22,15 @@ app = FastAPI(
     title="Sprinkler Controller API",
     description="Control and schedule your sprinkler system",
     version="1.0.0"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
 )
 
 # Global controller instance
